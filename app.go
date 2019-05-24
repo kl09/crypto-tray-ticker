@@ -186,7 +186,6 @@ func (a *App) updateTray(selected []*Token, source string) {
 	var (
 		trayTitle      string
 		price, percent float64
-		err            error
 	)
 
 	if source != "" {
@@ -197,16 +196,16 @@ func (a *App) updateTray(selected []*Token, source string) {
 
 	if len(selected) > 0 {
 		for _, token := range selected {
-			token, err = a.getToken(token, source)
+			tokenUpdated, err := a.getToken(token, source)
 
 			if err != nil {
 				a.log.Error("can't get token", err)
 				trayTitle += fmt.Sprintf("%s - %s ", token.Symbol, err.Error())
-			} else if token != nil {
-				price, _ = token.PriceUsd.Float64()
-				trayTitle += fmt.Sprintf("%s - %.3f$ ", token.Symbol, price)
+			} else if tokenUpdated != nil {
+				price, _ = tokenUpdated.PriceUsd.Float64()
+				trayTitle += fmt.Sprintf("%s - %.3f$ ", tokenUpdated.Symbol, price)
 
-				percent, _ = token.ChangePercent24Hr.Float64()
+				percent, _ = tokenUpdated.ChangePercent24Hr.Float64()
 				if percent != 0 {
 					trayTitle += fmt.Sprintf("[%.2f%%]  ", percent)
 				}
