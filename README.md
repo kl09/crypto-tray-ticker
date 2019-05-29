@@ -35,3 +35,6 @@ go build
 
 ## License
 [The MIT License (MIT)](https://opensource.org/licenses/MIT)
+
+
+Star ⭐⭐⭐ it if u like

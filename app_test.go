@@ -43,8 +43,6 @@ func TestApp_GetTokens(t *testing.T) {
 		assert.Equal(t, "bitcoin", tokens[0].ID)
 		assert.Equal(t, "BTC", tokens[0].Symbol)
 		assert.Equal(t, "Bitcoin", tokens[0].Name)
-		assert.Equal(t, json.Number("17711650.0000000000000000"), tokens[0].Supply)
-		assert.Equal(t, json.Number("21000000.0000000000000000"), tokens[0].MaxSupply)
 		assert.Equal(t, json.Number("7791.7934691770748761"), tokens[0].PriceUsd)
 		assert.Equal(t, json.Number("-1.4691508362430571"), tokens[0].ChangePercent24Hr)
 	}

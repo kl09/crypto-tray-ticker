@@ -273,12 +273,11 @@ func (a *App) getCoinCapToken(token *Token) (*Token, error) {
 }
 
 func (a *App) getBinanceToken(token *Token, currency string) (*Token, error) {
-	type Result struct {
+	type Result []struct {
 		Price json.Number `json:"price"`
-		Mins  int         `json:"mins"`
 	}
 	result := Result{}
-	url := fmt.Sprintf("https://api.binance.com/api/v3/avgPrice?symbol=%s%s", token.Symbol, currency)
+	url := fmt.Sprintf("https://api.binance.com/api/v1/trades?limit=1&symbol=%s%s", token.Symbol, currency)
 
 	r, err := makeRequest(context.Background(), a.client, "GET", url, nil, nil)
 	if err != nil {
@@ -307,7 +306,7 @@ func (a *App) getBinanceToken(token *Token, currency string) (*Token, error) {
 		return nil, fmt.Errorf("parsing problem")
 	}
 
-	token.PriceUsd = result.Price
+	token.PriceUsd = result[0].Price
 	token.ChangePercent24Hr = ""
 
 	return token, nil
